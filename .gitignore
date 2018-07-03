@@ -11,3 +11,14 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 .env
+./midle
+./modelo
+./migraciones
+./rutasweb.php
+./controladores
+./vendor/bin/php-parse
+./vendor/bin/phpunit
+./vendor/bin/var-dump-server
+./vendor/bin/psysh
+./vistas
+./requests

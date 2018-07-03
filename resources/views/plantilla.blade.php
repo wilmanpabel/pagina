@@ -5,7 +5,7 @@
     <title>@yield('titulo')</title>
     <style>
    .active{
-       color:blue
+       color:green
     }
    .error{
        color:red
@@ -18,6 +18,7 @@
      function activeMenu($url){
         return request()->is($url)?"active":"";
      }
+
     ?>
     <h1>{{ request()->is('/')?"estas en home":"no home" }}</h1>
     <nav>
