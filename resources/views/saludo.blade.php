@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>saludo</title>
-</head>
-<body>
+   @extends('plantilla')
+
+   @section('titulo')
+   Saludo
+   @stop
+
+@section('contenido')
    <h1>Hora {{ $nombre }}</h1>
-</body>
-</html>
+   <ul>
+       @foreach($consolas as $con)
+           <li>{{ $con }}</li>
+       @endforeach
+   </ul>
+   @stop

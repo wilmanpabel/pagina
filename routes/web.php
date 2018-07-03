@@ -1,13 +1,11 @@
 <?php
 
-Route::get('/',['as'=>'home', function () {
-    return view('welcome');
-}]);
+Route::get('/',['as'=>'home','uses'=>'PagesController@home']);
 
-Route::get('/saludo/{nombre}',['as'=>'saludo', function ($nombre) {
-    return view('saludo',compact('nombre'));
-}]);
+Route::get('/saludo/{nombre?}',['as'=>'saludo', 'uses'=>'PagesController@saludo']);
 
-Route::get('/contacto',['as'=>'contacto', function () {
-    return view('contactos');
-}]);
+Route::post('/contacto','PagesController@mensaje');
+
+Route::get('/contacto',['as'=>'contacto','uses'=>'PagesController@contact' ]);
+
+//token error is 419
