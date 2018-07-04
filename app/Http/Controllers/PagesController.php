@@ -12,6 +12,9 @@ class PagesController extends Controller
 //    }
 
     public function home(){
+       //return response('contenido de la respuesta',201)
+       //                ->header('x-token','fasdfasdf')
+       //                ->cookie('X-COOKIE','fasdfsdffsdaf xd');
         return view('home');
     }
 
@@ -24,6 +27,11 @@ class PagesController extends Controller
     }
 
     public function mensaje(CrearMensajeRequest $request){
-        return $request->all();
+        $data=$request->all();
+        return back()
+               ->with('info','tu mensaje a sido enviado');
+       // return redirect()
+       //        ->route('contacto')
+       //        ->with('info','tu mensaje a sido enviado');
     }
 }

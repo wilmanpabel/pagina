@@ -1,12 +1,14 @@
 @extends('plantilla')
-
 @section('titulo')
-Contactos
+    Contactos
 @stop
-
 @section('contenido')
 <h1>Contacto</h1>
+@if(session()->has('info'))
+    <h3>Tu mensaje a sido enviado</h3>
+@else
 <form action="contacto" method='POST'>
+    {!! csrf_field() !!}
 <p>
 <label for="">nombre</label>
 <input type="text" name='nombre' value="{{ old('nombre') }}">
@@ -24,4 +26,6 @@ Contactos
 </p>
     <input type="submit" value="Enviar">
 </form>
+@endif
+
 @stop
