@@ -18,20 +18,9 @@ class PagesController extends Controller
         return view('home');
     }
 
-    public function contact(){
-        return view('contactos');
-    }
     public function saludo($nombre){
         $consolas=["Play station 5" ,"xbox 3","Wii "];
         return view('saludo',compact('nombre','consolas'));
     }
 
-    public function mensaje(CrearMensajeRequest $request){
-        $data=$request->all();
-        return back()
-               ->with('info','tu mensaje a sido enviado');
-       // return redirect()
-       //        ->route('contacto')
-       //        ->with('info','tu mensaje a sido enviado');
-    }
 }
