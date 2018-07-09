@@ -1,6 +1,6 @@
 @extends('plantilla')
 @section('contenido')
 No se encontro la pagina que buscas
-<a href="{{ route('home') }}">regresar</a>
+<a href="{{URL::previous()}}">regresar</a>
 @endsection
 

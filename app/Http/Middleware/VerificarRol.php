@@ -15,9 +15,12 @@ class VerificarRol
      */
     public function handle($request, Closure $next,$rol)
     {
-        if(auth()->user()->rol===$rol){
-            return $next($request);
-        }
+        $roles=array_slice(func_get_args(),2);
+        //foreach($roles as $rol){
+            if(auth()->user()->hasRoles($roles)){
+                return $next($request);
+            }
+        //}
         return back();
     }
 }

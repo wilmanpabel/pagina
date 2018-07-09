@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+ //dd(\App\User::first()->roles->toArray());
+?>
 <head>
     <meta charset="UTF-8">
     <title>@yield('titulo')</title>
@@ -26,15 +29,15 @@
         <a class="nav-link" href="{{route('saludo','Danielita')}}">Saludo</a>
       </li>
 
-      <li class="nav-item {{ activeMenu("mensajes/create*")}}">
+      <li class="nav-item {{ activeMenu("mensajes/create")}}">
         <a class="nav-link" href="{{ route('mensajes.create')}}">Contacto</a>
       </li>
 
             @if(auth()->check())
-            <li class="nav-item {{ activeMenu("mensajes*")}}">
+            <li class="nav-item {{ activeMenu("mensajes/*")}}">
                 <a  class='nav-link' href="{{ route('mensajes.index')}}">Mensajes</a>
             </li>
-            @if(auth()->user()->hasRoles('admin'))
+            @if(auth()->user()->hasRoles(['admin','estudiante']))
                 <li class="nav-item {{ activeMenu("usuarios")}}">
                     <a  class='nav-link' href="{{ route('usuarios.index')}}">Usuarios</a>
                 </li>
@@ -43,6 +46,7 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ auth()->user()->name }}</a> 
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="/logout">Cerrar Sesion</a>
+              <a class="dropdown-item" href="/usuarios/{{ auth()->id() }}/edit">Mi cuenta</a>
             </div>
           </li> 
             @else
@@ -59,6 +63,9 @@
 
 
 <div class="container">
+    @if(session()->has('info'))
+     <div class="alert alert-success">{{ session('info')}}</div>
+    @endif
     @yield('contenido')
 <br>
 <hr>

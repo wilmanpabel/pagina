@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use  App\User;
+use App\User;
+use App\Http\Requests\UpdateUserRequest;
 
 class UsuarioControlador extends Controller
 {
@@ -13,7 +14,8 @@ class UsuarioControlador extends Controller
      * @return \Illuminate\Http\Response
      */
      function __construct(){
-        $this->middleware(['auth','roles:admin']);
+        $this->middleware('auth');
+        $this->middleware('roles:admin,estudiante',['except'=>['edit','update']]);
      }
 
     public function index()
@@ -57,12 +59,17 @@ class UsuarioControlador extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit($id)
     {
-        //
+        $usuario=User::findOrFail($id);
+        ///dd($usuario);
+        $this->authorize('edit',$usuario);
+        return view('usuarios.editar',compact('usuario'));
+
     }
 
     /**
@@ -72,9 +79,10 @@ class UsuarioControlador extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest  $request, $id)
     {
-        //
+        User::findOrFail($id)->update($request->all());
+        return back()->with('info','Usuario actualizado');
     }
 
     /**

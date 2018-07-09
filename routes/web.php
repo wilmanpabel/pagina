@@ -1,15 +1,19 @@
 <?php
 Route::get('/test',function(){
     $usuario=new App\User;
-    $usuario->name='danielita';
-    $usuario->email='pepa@gmail.com';
+    $usuario->name='Danielita ';
+    $usuario->email='wilmanpabel@gmail.com';
     $usuario->password=bcrypt('123');
-    $usuario->rol='moderador';
+    $usuario->rol_id=2;
     $usuario->save();
     //auth()->logout();
     return $usuario;
 
 });
+Route::get('roles',function(){
+    return \App\Rol::with('usuario')->get();
+});
+
 Route::get('/',['as'=>'home','uses'=>'PagesController@home']);
 Route::get('/saludo/{nombre?}',['as'=>'saludo', 'uses'=>'PagesController@saludo']);
 

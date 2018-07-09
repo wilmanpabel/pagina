@@ -27,7 +27,27 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function hasRoles($rol){
-        return $this->rol===$rol;
+//relacion de uno
+    public function rol (){
+            //pertenece a rol
+        return $this->belongsTo(Rol::class);
     }
+
+//relacion de muchos roles
+    public function roles (){
+            //pertenece a muchos roles rol
+        return $this->belongsToMany(Rol::class,'rolesAsignados');
+    }
+
+    public function hasRoles(array $roles){
+
+        foreach ($roles as $rol){
+            foreach($this->roles as $usuarioRol){
+                if($usuarioRol->nombre==$rol){
+                    return true;
+                }
+            }
+        }
+    }
+
 }
