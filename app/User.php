@@ -50,4 +50,10 @@ class User extends Authenticatable
         }
     }
 
+    public function isAdmin(){
+        if($this->hasRoles(['admin'])){
+         return  true;
+        }
+    }
+
 }

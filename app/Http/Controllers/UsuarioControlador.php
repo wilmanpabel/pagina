@@ -14,8 +14,8 @@ class UsuarioControlador extends Controller
      * @return \Illuminate\Http\Response
      */
      function __construct(){
-        $this->middleware('auth');
-        $this->middleware('roles:admin,estudiante',['except'=>['edit','update']]);
+        $this->middleware('auth',['except'=>['show']]);
+        $this->middleware('roles:admin,estudiante',['except'=>['edit','update','show']]);
      }
 
     public function index()
@@ -53,7 +53,8 @@ class UsuarioControlador extends Controller
      */
     public function show($id)
     {
-        //
+        $usuario=User::findOrFail($id);
+        return view('usuarios.ver',compact('usuario'));
     }
 
     /**
@@ -64,8 +65,8 @@ class UsuarioControlador extends Controller
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit($id)
-    {
-        $usuario=User::findOrFail($id);
+        {
+            $usuario=User::findOrFail($id);
         ///dd($usuario);
         $this->authorize('edit',$usuario);
         return view('usuarios.editar',compact('usuario'));
@@ -93,6 +94,9 @@ class UsuarioControlador extends Controller
      */
     public function destroy($id)
     {
-        //
+            $usu=User::findOrFail($id);
+            $this->authorize('destroy',$usu);
+            $usu->delete();
+            return back();
     }
 }
