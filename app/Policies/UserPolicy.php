@@ -19,7 +19,7 @@ class UserPolicy
         //
     }
 
-    public function edit(App\User $authUser, App\User $user)
+        public function edit(User $authUser, User $user)
     {
         return $authUser->id === $user->id;
     }
